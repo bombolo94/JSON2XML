@@ -26,12 +26,12 @@ import json2xml.values.Values;
 public class Json2Xml {
 
 	public static void main(String[] args) {
-		String fileJson = "C:/Users/bomb-/Desktop/FromXMLtoJson/Final.json";
+		String path = "C:/Users/bomb-/Desktop/FromXMLtoJson/Final.json";
 	
 			
 			try {
 				Gson gson = new Gson();
-				BufferedReader reader = new BufferedReader(new FileReader(fileJson));
+				BufferedReader reader = new BufferedReader(new FileReader(path));
 				Container result = gson.fromJson(reader, Container.class);
 				
 				String filename = "./final.xml";
