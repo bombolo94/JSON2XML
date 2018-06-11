@@ -5,7 +5,6 @@ import java.text.Normalizer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.sun.xml.internal.ws.util.StringUtils;
 
 
 

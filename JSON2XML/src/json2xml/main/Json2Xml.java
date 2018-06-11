@@ -26,7 +26,7 @@ import json2xml.values.Values;
 public class Json2Xml {
 
 	public static void main(String[] args) {
-		String path = "PATH JSON FILE";
+		String path = "PATH FILE JSON";
 	
 			
 			try {
