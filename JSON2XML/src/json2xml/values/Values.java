@@ -83,7 +83,6 @@ public class Values {
 				
 				line.appendChild(coordinates);
 			}
-			
 			for(PropertyValues p: l.getProperty()) {
 				Element property = doc.createElement("property");
 				property.setAttribute("name",p.getName());

@@ -1,8 +1,11 @@
 package json2xml.specification;
 import java.net.URI;
+import java.text.Normalizer;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import com.sun.xml.internal.ws.util.StringUtils;
 
 
 
@@ -70,7 +73,9 @@ public class PropertySpecification {
 		
 		if(this.getDescription()!=null) {
 			Element descr = doc.createElement("propertyDescription");
-			descr.appendChild(doc.createTextNode(this.getDescription()));
+			String string = this.getDescription();
+			string = Normalizer.normalize(string, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+			descr.appendChild(doc.createTextNode(string));
 			def.appendChild(descr);
 		}
 		
@@ -78,8 +83,16 @@ public class PropertySpecification {
 			Element dataType = doc.createElement("dataType");
 			dataType.appendChild(doc.createTextNode(this.getDataType()));
 			def.appendChild(dataType);
+			
+			if(this.getCodeList()!=null) {
+				Element codeList = doc.createElement("codeList");
+				codeList.appendChild(doc.createTextNode(String.valueOf(this.getCodeList())));
+				def.appendChild(codeList);
+				
+			}
 			Element unit = doc.createElement("unitOfMeasure");
 			if (this.unitOfMeasure != null) {
+				
 				unit.appendChild(doc.createTextNode(this.getUnitOfMeasure()));
 			} else {
 				unit.appendChild(doc.createTextNode("adimensionale"));

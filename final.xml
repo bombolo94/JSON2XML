@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UrbanDataset xmlns="smartcityplatform:enea:information:xml:schemas:main:urbandataset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="smartcityplatform:enea:information:xml:schemas:main:urbandataset http://smartcityplatform.enea.it/specification/information/1.0/xml/schemas/scps-urbandataset-schema-1.0.xsd">
+    <specification version="1.0">
+        <id>WeatherForecast-1.0</id>
+        <name>Weather Forecast</name>
+        <uri>http://smartcityplatform.enea.it/specification/semantic/2.0/ontology/scps-ontology-2.0.owl#WeatherForecast</uri>
+        <properties>
+            <propertyDefinition>
+                <propertyName>Rainfall</propertyName>
+                <propertyDescription>Dati sulle precipitazioni.</propertyDescription>
+                <dataType>double</dataType>
+                <unitOfMeasure>millimetrePerHour</unitOfMeasure>
+            </propertyDefinition>
+            <propertyDefinition>
+                <propertyName>coordinates</propertyName>
+                <propertyDescription>Posizione dei dati riportati nella riga.</propertyDescription>
+                <subProperties>
+                    <propertyName>format</propertyName>
+                    <propertyName>longitude</propertyName>
+                    <propertyName>latitude</propertyName>
+                    <propertyName>altitude</propertyName>
+                </subProperties>
+            </propertyDefinition>
+            <propertyDefinition>
+                <propertyName>format</propertyName>
+                <propertyDescription>Formato wgs84 in cui sono espresse le coordinate (attribtuto opzionale).</propertyDescription>
+                <dataType>string</dataType>
+                <codeList>http://smartcityplatform.enea.it/specification/semantic/2.0/gc/FormatCode.gc</codeList>
+                <unitOfMeasure>adimensionale</unitOfMeasure>
+            </propertyDefinition>
+            <propertyDefinition>
+                <propertyName>longitude</propertyName>
+                <propertyDescription>Longitudine.</propertyDescription>
+                <dataType>double</dataType>
+                <unitOfMeasure>adimensionale</unitOfMeasure>
+            </propertyDefinition>
+            <propertyDefinition>
+                <propertyName>latitude</propertyName>
+                <propertyDescription>Latitudine.</propertyDescription>
+                <dataType>double</dataType>
+                <unitOfMeasure>adimensionale</unitOfMeasure>
+            </propertyDefinition>
+            <propertyDefinition>
+                <propertyName>altitude</propertyName>
+                <propertyDescription>Altitudine (proprietA opzionale).</propertyDescription>
+                <dataType>double</dataType>
+                <unitOfMeasure>adimensionale</unitOfMeasure>
+            </propertyDefinition>
+            <propertyDefinition>
+                <propertyName>period</propertyName>
+                <propertyDescription>Periodo durante il quale sono stati rilevati i dati riportati nella riga.</propertyDescription>
+                <subProperties>
+                    <propertyName>start_ts</propertyName>
+                    <propertyName>end_ts</propertyName>
+                </subProperties>
+            </propertyDefinition>
+            <propertyDefinition>
+                <propertyName>start_ts</propertyName>
+                <propertyDescription>Marca temporale indicante l'inizio del periodo.</propertyDescription>
+                <dataType>dateTime</dataType>
+                <unitOfMeasure>adimensionale</unitOfMeasure>
+            </propertyDefinition>
+            <propertyDefinition>
+                <propertyName>end_ts</propertyName>
+                <propertyDescription>Marca temporale indicante la fine del periodo.</propertyDescription>
+                <dataType>dateTime</dataType>
+                <unitOfMeasure>adimensionale</unitOfMeasure>
+            </propertyDefinition>
+        </properties>
+    </specification>
+    <context>
+        <producer>
+            <id schemeID="xx">producer identifier</id>
+        </producer>
+        <timeZone>UTC+1</timeZone>
+        <timestamp>1001-01-01T00:00:00</timestamp>
+        <coordinates format="WGS84-DD">
+            <latitude>0.0</latitude>
+            <longitude>0.0</longitude>
+        </coordinates>
+        <language>IT</language>
+    </context>
+    <values>
+        <line id="1">
+            <period>
+                <start_ts>1000-12-31T00:00:00</start_ts>
+                <end_ts>1000-12-31T23:59:00</end_ts>
+            </period>
+            <coordinates format="WGS84-DD">
+                <latitude>0.0</latitude>
+                <longitude>0.0</longitude>
+            </coordinates>
+            <property name="Rainfall">
+                <val>0</val>
+            </property>
+        </line>
+    </values>
+</UrbanDataset>

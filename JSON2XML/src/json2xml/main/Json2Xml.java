@@ -26,7 +26,7 @@ import json2xml.values.Values;
 public class Json2Xml {
 
 	public static void main(String[] args) {
-		String path = "C:/Users/bomb-/Desktop/FromXMLtoJson/Final.json";
+		String path = "PATH JSON FILE";
 	
 			
 			try {
@@ -35,7 +35,6 @@ public class Json2Xml {
 				Container result = gson.fromJson(reader, Container.class);
 				
 				String filename = "./final.xml";
-				System.out.println("Generating message file");
 				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 				Document doc = docBuilder.newDocument();
@@ -81,8 +80,7 @@ public class Json2Xml {
 				
 				StreamResult r = new StreamResult(new File(filename));
 				transformer.transform(source, r);
-				System.out.println("Message template file saved");
-
+				System.out.println("File XML generated. . .");
 
 				
 			} catch (Exception e) {
