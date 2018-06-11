@@ -1,6 +1,7 @@
 package json2xml.container;
 
 import java.net.URI;
+
 import java.util.ArrayList;
 
 import org.w3c.dom.Element;
@@ -10,6 +11,7 @@ import org.w3c.dom.NodeList;
 import json2xml.context.*;
 import json2xml.specification.*;
 import json2xml.values.*;
+
 public class Container {
 	
 	public Container() {}
@@ -37,9 +39,8 @@ public class Container {
 		specification.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
 		URI uri = URI.create(eElement.getElementsByTagName("uri").item(0).getTextContent());
 		specification.setUri(uri);
-		if(eElement.getElementsByTagName("properties").item(0)==null) {
-			specification.setProperties(null);
-		}else {
+		if(eElement.getElementsByTagName("properties").item(0)!=null) {
+			
 			NodeList nListProperties = eElement.getElementsByTagName("properties").item(0).getChildNodes();
 			ArrayList<PropertySpecification> arrayProperties = new ArrayList<PropertySpecification>(nListProperties.getLength());
 			Properties properties = new Properties();
@@ -55,23 +56,18 @@ public class Container {
 					propertySpecification.setName(name);
 					if(elementProperty.getElementsByTagName("propertyDescription").item(0)!=null) {
 						String description = elementProperty.getElementsByTagName("propertyDescription").item(0).getTextContent();
+						//description = description.replaceAll("'","\\\\'");
 						description = description.replaceAll ("\r\n|\r|\n", " ");
 						description = description.replaceAll("   ", "");
-						description = description.replace("'",  " "); 
 						propertySpecification.setDescription(description);
-					}else {
-						propertySpecification.setDescription(null);
 					}
 					if( elementProperty.getElementsByTagName("dataType").item(0) !=null) {
 						String dataType = elementProperty.getElementsByTagName("dataType").item(0).getTextContent();
 						propertySpecification.setDataType(dataType);
-					}else {
-						propertySpecification.setDataType(null);
 					}
 									
-					if(elementProperty.getElementsByTagName("codeList").item(0)== null) {
-						propertySpecification.setCodeList(null);
-					}else {
+					if(elementProperty.getElementsByTagName("codeList").item(0)!= null) {
+						
 						URI codeList = URI.create(elementProperty.getElementsByTagName("codeList").item(0).getTextContent());
 						propertySpecification.setCodeList(codeList);
 					}
@@ -99,6 +95,7 @@ public class Container {
 						}
 						subProperties.setPropertyName(arraySubproperty);
 						propertySpecification.setSubProperties(subProperties);
+						//arrayProperties.add(propertySpecification);
 					}
 					arrayProperties.add(propertySpecification);
 				}
@@ -137,9 +134,9 @@ public class Container {
 			}else if(childContext.getNodeName().equals("coordinates")) {
 				Coordinates coordinates = new Coordinates();
 				Element elementCoordinate = (Element) childContext;
-				if(elementCoordinate.getAttribute("format").isEmpty()) {
-					coordinates.setFormat(null);
-				}else {
+				if(!elementCoordinate.getAttribute("format").isEmpty()) {
+//					coordinates.setFormat(null);
+//				}else {
 					coordinates.setFormat(elementCoordinate.getAttribute("format"));
 				}
 				coordinates.setLongitude(Double.parseDouble(elementCoordinate.getElementsByTagName("longitude").item(0).getTextContent()));

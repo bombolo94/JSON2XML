@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
 
 public class Values { 
 	
-	private ArrayList<Line> line=null;
+	private ArrayList<Line> line;
 	
 	public ArrayList<Line> getLines() {
 		return line;

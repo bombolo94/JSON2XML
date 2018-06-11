@@ -1,19 +1,19 @@
 package json2xml.specification;
 
 import java.net.URI;
+
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 public class Specification {
 	
 	public Specification() {}
-	
-	private Double version=null;
+	private Double version;
 	private IdSpecification id;
 	private String name;
 	private URI uri;
-	
 	private Properties properties;
+	
 	public Double getVersion() {
 		return version;
 	}

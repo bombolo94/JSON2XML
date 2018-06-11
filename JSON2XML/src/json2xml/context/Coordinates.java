@@ -7,7 +7,7 @@ public class Coordinates {
 	private String format;
 	private double latitude;
 	private double longitude;
-	private Double height=null;
+	private Double height;
 	
 	public Coordinates() {}
 

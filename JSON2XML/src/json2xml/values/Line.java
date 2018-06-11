@@ -7,7 +7,7 @@ import json2xml.context.Coordinates;
 
 public class Line {
 	
-	private Integer id = null;
+	private Integer id;
 	private String description;
 	private String timestamp;
 	private String schemeID;

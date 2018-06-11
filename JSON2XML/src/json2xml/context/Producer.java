@@ -6,7 +6,7 @@ public class Producer {
 	public Producer() {}
 	
 	private String id;
-	private String schemeID=null;
+	private String schemeID;
 	
 
 	public String getId() {

@@ -1,30 +1,21 @@
 package json2xml.specification;
 import java.net.URI;
-import java.text.Normalizer;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
-
-
 public class PropertySpecification {
 	
 
-	private String propertyName= null;
-	private String propertyDescription= null;
-	private String dataType=null;
-	private URI codeList = null;
-	private String unitOfMeasure= null;
-	
-	//private ArrayList<String> subProperties = null;
-	private SubProperties subProperties = null;
+	private String propertyName;
+	private String propertyDescription;
+	private String dataType;
+	private URI codeList;
+	private String unitOfMeasure;
+	private SubProperties subProperties;
 	
 	
 	public SubProperties getSubProperties() {
-		if(subProperties==null) {
-			return null;
-		}
 		return subProperties;
 	}
 	public void setSubProperties(SubProperties subProperties) {
@@ -73,7 +64,6 @@ public class PropertySpecification {
 		if(this.getDescription()!=null) {
 			Element descr = doc.createElement("propertyDescription");
 			String string = this.getDescription();
-			string = Normalizer.normalize(string, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 			descr.appendChild(doc.createTextNode(string));
 			def.appendChild(descr);
 		}

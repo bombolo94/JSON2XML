@@ -6,8 +6,8 @@ public class Period {
 	private String start_ts;
 	private String end_ts;
 	
-	private String schemeIDend = null;
-	private String schemeIDst = null;
+	private String schemeIDend;
+	private String schemeIDst;
 	
 	public String getSchemeIDst() {
 		return schemeIDst;

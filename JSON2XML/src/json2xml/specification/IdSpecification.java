@@ -1,5 +1,6 @@
 package json2xml.specification;
 
+
 public class IdSpecification {
 	private String value;
 	
