@@ -10,6 +10,13 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.w3c.dom.*;
 import org.w3c.dom.Element;
 
@@ -23,69 +30,112 @@ import json2xml.values.Values;
 
 
 
+
 public class Json2Xml {
 
 	public static void main(String[] args) {
-		String path = "PATH FILE JSON";
-	
-			
-			try {
-				Gson gson = new Gson();
-				BufferedReader reader = new BufferedReader(new FileReader(path));
-				Container result = gson.fromJson(reader, Container.class);
-				
-				String filename = "./final.xml";
-				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-				Document doc = docBuilder.newDocument();
-				doc.setXmlStandalone(true);
-				
-				
-				Element UD = doc.createElement("UrbanDataset");
-				
-				//// Urban Dataset attributes definition
-				Attr xmlnsxsi = doc.createAttribute("xmlns:xsi");
-				xmlnsxsi.setValue("http://www.w3.org/2001/XMLSchema-instance");
-				UD.setAttributeNode(xmlnsxsi);
-				
-				Attr schemaLocation = doc.createAttribute("xsi:schemaLocation");
-				schemaLocation.setValue("smartcityplatform:enea:information:xml:schemas:main:urbandataset http://smartcityplatform.enea.it/specification/information/1.0/xml/schemas/scps-urbandataset-schema-1.0.xsd");
-				UD.setAttributeNode(schemaLocation);
-				
-				Attr xmlnsEl = doc.createAttribute("xmlns");
-				xmlnsEl.setValue("smartcityplatform:enea:information:xml:schemas:main:urbandataset");
-				UD.setAttributeNode(xmlnsEl);
-				
-				doc.appendChild(UD);
-				Specification spec = result.getUrbanDataset().getSpecification();
-				Element specNode = spec.text(doc);
-				
-				Context cont = result.getUrbanDataset().getContext();
-				Element contextNode = cont.text(doc);
-				
-				Values val = result.getUrbanDataset().getValues();
-				Element valuesNode = val.text(doc);
-				
-				
-				UD.appendChild(specNode);
-				UD.appendChild(contextNode);
-				UD.appendChild(valuesNode);				
-				
-				TransformerFactory transformerFactory = TransformerFactory.newInstance();
-				Transformer transformer = transformerFactory.newTransformer();
-				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-				transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "yes");
-				DOMSource source = new DOMSource(doc);
-				
-				StreamResult r = new StreamResult(new File(filename));
-				transformer.transform(source, r);
-				System.out.println("File XML generated. . .");
-
-				
-			} catch (Exception e) {
-				e.printStackTrace();
+		CommandLineParser parser = new GnuParser();
+		Options options = new Options();
+		// We set C=0 if we want to parse from XML to JSON also 1
+		Option convert = new Option("C","parser", true, "allows users to parse from XML to JSON and vice-versa");
+		convert.setRequired(true);
+		convert.setArgName("MODE OF PARSING");
+		options.addOption(convert);
+		
+		Option inputFile = new Option("FI", "file input", true, "path of input file that we want to convert");
+		inputFile.setRequired(true);
+		inputFile.setArgName("FILE INPUT NAME");
+		options.addOption(inputFile);
+		
+		Option outputFile = new Option("FO", "file output", true, "path of output file that we want to convert");
+		outputFile.setRequired(true);
+		outputFile.setArgName("FILE OUTPUT NAME");
+		options.addOption(outputFile);
+		
+		
+		
+		CommandLine commandLine = null;
+		try {
+			commandLine = parser.parse( options, args );
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		HelpFormatter helpFormatter = new HelpFormatter();
+		helpFormatter.printHelp("Menu", options);
+		
+		if(commandLine.hasOption("C")) {
+			int modeOfParsing = Integer.parseInt(commandLine.getOptionValue("C"));
+			if(modeOfParsing == 0) {
+				System.out.println("Parsing From XML to JSON");
+			}else {
+				System.out.println("Parsing From JSON to XML");
 			}
+		}
+		
+		
+
+		
+//		String path = "PATH FILE JSON";
+//	
+//			
+//			try {
+//				Gson gson = new Gson();
+//				BufferedReader reader = new BufferedReader(new FileReader(path));
+//				Container result = gson.fromJson(reader, Container.class);
+//				
+//				String filename = "./final.xml";
+//				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+//				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+//				Document doc = docBuilder.newDocument();
+//				doc.setXmlStandalone(true);
+//				
+//				
+//				Element UD = doc.createElement("UrbanDataset");
+//				
+//				//// Urban Dataset attributes definition
+//				Attr xmlnsxsi = doc.createAttribute("xmlns:xsi");
+//				xmlnsxsi.setValue("http://www.w3.org/2001/XMLSchema-instance");
+//				UD.setAttributeNode(xmlnsxsi);
+//				
+//				Attr schemaLocation = doc.createAttribute("xsi:schemaLocation");
+//				schemaLocation.setValue("smartcityplatform:enea:information:xml:schemas:main:urbandataset http://smartcityplatform.enea.it/specification/information/1.0/xml/schemas/scps-urbandataset-schema-1.0.xsd");
+//				UD.setAttributeNode(schemaLocation);
+//				
+//				Attr xmlnsEl = doc.createAttribute("xmlns");
+//				xmlnsEl.setValue("smartcityplatform:enea:information:xml:schemas:main:urbandataset");
+//				UD.setAttributeNode(xmlnsEl);
+//				
+//				doc.appendChild(UD);
+//				Specification spec = result.getUrbanDataset().getSpecification();
+//				Element specNode = spec.text(doc);
+//				
+//				Context cont = result.getUrbanDataset().getContext();
+//				Element contextNode = cont.text(doc);
+//				
+//				Values val = result.getUrbanDataset().getValues();
+//				Element valuesNode = val.text(doc);
+//				
+//				
+//				UD.appendChild(specNode);
+//				UD.appendChild(contextNode);
+//				UD.appendChild(valuesNode);				
+//				
+//				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+//				Transformer transformer = transformerFactory.newTransformer();
+//				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+//				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+//				transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "yes");
+//				DOMSource source = new DOMSource(doc);
+//				
+//				StreamResult r = new StreamResult(new File(filename));
+//				transformer.transform(source, r);
+//				System.out.println("File XML generated. . .");
+//
+//				
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 			
 			
 		
